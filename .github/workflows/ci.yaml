@@ -28,9 +28,11 @@ jobs:
 
 
       - uses: actions/checkout@v2
-        token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
-        repository: yo-l1982/demo-web-config
-        path: config
+        with:
+          token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
+          repository: yo-l1982/demo-web-config
+          path: config
+
       - run: |
           ls -al
           ls -al config
