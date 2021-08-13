@@ -2,7 +2,7 @@ name: Build site
 
 on:
   push:
-    branches: [ beta ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -17,11 +17,20 @@ jobs:
       #     username: ${{ secrets.DOCKERHUB_USERNAME }}
       #     password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: false
-          tags: 
-            - joelbernerman/web-demo:latest
-            - joelbernerman/web-demo:${{ github.sha }}
+      # - name: Build and push
+      #   id: docker_build
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     push: false
+      #     tags: 
+      #       - joelbernerman/web-demo:latest
+      #       - joelbernerman/web-demo:${{ github.sha }}
+
+
+      - uses: actions/checkout@v2
+        token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
+        repository: yo-l1982/demo-web-config
+        path: config
+      - run: |
+          ls -al
+          ls -al config
