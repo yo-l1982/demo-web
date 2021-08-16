@@ -22,10 +22,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: 
-            - webbutvecklinghelsingborg/gitops:latest
-            - webbutvecklinghelsingborg/gitops:${{ github.sha }}
-
+          tags: webbutvecklinghelsingborg/gitops:latest,webbutvecklinghelsingborg/gitops:${{ github.sha }}
 
       - uses: actions/checkout@v2
         with:
