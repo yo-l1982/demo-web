@@ -28,9 +28,11 @@ jobs:
         with:
           token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
           repository: yo-l1982/demo-web-config
-          
           path: config
-
+      - uses: imranismail/setup-kustomize@v1
       - run: |
-          ls -al
-          ls -al config
+          cd config
+          (cd base && kustomize edit set image webbutvecklinghelsingborg/gitops=webbutvecklinghelsingborg/gitops:${{ github.sha }})
+          kustomize build base -o env/prod/deploy.yaml
+
+
