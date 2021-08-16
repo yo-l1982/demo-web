@@ -11,26 +11,27 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # - name: Login to DockerHub
-      #   uses: docker/login-action@v1 
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # - name: Build and push
-      #   id: docker_build
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     push: false
-      #     tags: 
-      #       - joelbernerman/web-demo:latest
-      #       - joelbernerman/web-demo:${{ github.sha }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: 
+            - webbutvecklinghelsingborg/gitops:latest
+            - webbutvecklinghelsingborg/gitops:${{ github.sha }}
 
 
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
           repository: yo-l1982/demo-web-config
+          
           path: config
 
       - run: |
