@@ -30,6 +30,6 @@ jobs:
           repo: demo-web-config
           github_token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
           workflow_file_name: demo-web-deploy.yaml
-          inputs: '{sha: "${{ github.sha }}"}'
+          inputs: '{"sha": "${{ github.sha }}"}'
           wait_workflow: false
 
