@@ -1,4 +1,4 @@
-name: Build site
+name: CI Demo Web
 
 on:
   push:
@@ -24,18 +24,12 @@ jobs:
           push: true
           tags: webbutvecklinghelsingborg/gitops:latest,webbutvecklinghelsingborg/gitops:${{ github.sha }}
 
-      - uses: actions/checkout@v2
+      - uses: convictional/trigger-workflow-and-wait@v1.3.0
         with:
-          token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
-          repository: yo-l1982/demo-web-config
-          path: config
-      - uses: imranismail/setup-kustomize@v1
-      - run: |
-          cd config
-          (cd base && kustomize edit set image webbutvecklinghelsingborg/gitops=webbutvecklinghelsingborg/gitops:${{ github.sha }})
-          kustomize build base -o env/prod/deploy.yaml
-          git config user.name gitops-builder
-          git config user.email gitops-builder@helsingborg.se
-          git add .
-          git commit -m "Updated image tag to updated build tag ${{ github.sha }})"
-          git push origin master
+          owner: yo-l1982
+          repo: demo-web-config
+          github_token: ${{ secrets.DEMO_WEB_GH_TOKEN }}
+          workflow_file_name: demo-web-deploy.yaml
+          inputs: '{sha: "${{ github.sha }}"}'
+          wait_workflow: false
+
